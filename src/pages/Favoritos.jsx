@@ -10,26 +10,30 @@ import { useNavigate } from 'react-router-dom';
 export default function Favoritos() {
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchVideos = async () => {
-      try {
-        const userEmail = auth.currentUser.email;
-        const querySnapshot = await getDocs(
-          collection(FIREBASE_STORAGE, 'users', userEmail, 'favoritos')
-        );
-        const loadedVideos = [];
-        querySnapshot.forEach((doc) => {
-          loadedVideos.push({ id: doc.id, ...doc.data() });
-        });
-        setVideos(loadedVideos);
-      } catch (error) {
-        alert('No se pudieron cargar los videos favoritos');
-        console.error(error);
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        try {
+          const userEmail = user.email;
+          const querySnapshot = await getDocs(
+            collection(FIREBASE_STORAGE, 'users', userEmail, 'favoritos')
+          );
+          const loadedVideos = [];
+          querySnapshot.forEach((doc) => {
+            loadedVideos.push({ id: doc.id, ...doc.data() });
+          });
+          setVideos(loadedVideos);
+        } catch (error) {
+          alert('No se pudieron cargar los videos favoritos');
+          console.error(error);
+        }
       }
-    };
-    fetchVideos();
+      setLoading(false);
+    });
+    return () => unsubscribe();
   }, []);
 
   const isValidURL = (url) => {

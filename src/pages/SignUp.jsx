@@ -82,6 +82,8 @@ export default function SignUp() {
 const styles = {
   scrollContainer: {
     minHeight: '100vh',
+    width: '100vw',
+    overflowX: 'hidden',
     background: '#1C1C1C',
     display: 'flex',
     flexDirection: 'column',
@@ -89,13 +91,14 @@ const styles = {
     justifyContent: 'flex-start',
   },
   container: {
-    width: '100%',
+    width: '100vw',
     maxWidth: 400,
     margin: '0 auto',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: 16,
+    boxSizing: 'border-box', // <-- Añade esto
   },
   title: {
     color: 'white',
@@ -112,7 +115,8 @@ const styles = {
     marginBottom: 10,
   },
   signUpBox: {
-    width: '90%',
+    width: '100%',
+    maxWidth: 400,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

@@ -1,29 +1,17 @@
 import React from 'react';
-import { Box } from '@chakra-ui/react';
 
 export default function Video({ title, image, type, onPress, onDelete }) {
   if (type === 'YouTube') {
     return (
-      <Box
-        bg="#4B4B4B"
-        display="flex"
-        flexDirection="row"
-        alignItems="center"
-        py="30px"
-        borderRadius="20px"
-        border="2px solid red"
-        mb="30px"
-        w="100%"
-        maxW="480px"
-      >
+      <div style={styles.containerYoutube}>
         <img
           style={styles.image}
           src={image || '/default-thumb.png'}
           alt={title}
         />
-        <Box sx={styles.textContainer}>
-          <Box sx={styles.videoTitle}>{title}</Box>
-        </Box>
+        <div style={styles.textContainer}>
+          <div style={styles.videoTitle}>{title}</div>
+        </div>
         <button style={styles.iconContainer} onClick={onPress}>
           <svg width={36} height={36} viewBox="0 0 24 24">
             <path fill="white" d="M8 5v14l11-7z" />
@@ -34,31 +22,14 @@ export default function Video({ title, image, type, onPress, onDelete }) {
             <path fill="red" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
           </svg>
         </button>
-      </Box>
+      </div>
     );
   }
 
   if (type === 'Instagram') {
     return (
-      <Box
-        p="2px"
-        borderRadius="20px"
-        mb="30px"
-        bgGradient="linear(90deg, #5B51D8, #C13584, #FD1D1D, #F77737, #FFDC80)"
-        w="100%"
-        maxW="480px"
-      >
-        <Box
-          bg="#4B4B4B"
-          borderRadius="17px"
-          display="flex"
-          flexDirection="row"
-          alignItems="center"
-          py="30px"
-          w="100%"
-          maxW="476px"
-          m={0}
-        >
+      <div style={styles.gradientBorder}>
+        <div style={styles.containerInstagram}>
           {image ? (
             <img
               style={styles.image}
@@ -66,7 +37,7 @@ export default function Video({ title, image, type, onPress, onDelete }) {
               alt={title}
             />
           ) : (
-            <Box sx={styles.instagramLogoBox}>
+            <div style={styles.instagramLogoBox}>
               <svg
                 width="80"
                 height="60"
@@ -85,11 +56,11 @@ export default function Video({ title, image, type, onPress, onDelete }) {
                 <circle cx="40" cy="30" r="14" fill="none" stroke="#fff" strokeWidth="4"/>
                 <circle cx="62" cy="18" r="4" fill="#fff"/>
               </svg>
-            </Box>
+            </div>
           )}
-          <Box sx={styles.textContainer}>
-            <Box sx={styles.videoTitle}>{title}</Box>
-          </Box>
+          <div style={styles.textContainer}>
+            <div style={styles.videoTitle}>{title}</div>
+          </div>
           <button style={styles.iconContainer} onClick={onPress}>
             <svg width={36} height={36} viewBox="0 0 24 24">
               <path fill="white" d="M8 5v14l11-7z" />
@@ -100,8 +71,8 @@ export default function Video({ title, image, type, onPress, onDelete }) {
               <path fill="red" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
             </svg>
           </button>
-        </Box>
-      </Box>
+        </div>
+      </div>
     );
   }
 
@@ -109,6 +80,37 @@ export default function Video({ title, image, type, onPress, onDelete }) {
 }
 
 const styles = {
+  containerYoutube: {
+    background: '#4B4B4B',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: '30px 0',
+    borderRadius: 20,
+    border: '2px solid red',
+    marginBottom: 30,
+    width: '100%',
+    maxWidth: 480, // Cambiado
+  },
+  containerInstagram: {
+    background: '#4B4B4B',
+    borderRadius: 17,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: '30px 0',
+    width: '100%',
+    maxWidth: 476, // Cambiado (480 - 2*2px de padding/border)
+    margin: 0,
+  },
+  gradientBorder: {
+    padding: 2,
+    borderRadius: 20,
+    marginBottom: 30,
+    background: 'linear-gradient(90deg, #5B51D8, #C13584, #FD1D1D, #F77737, #FFDC80)',
+    width: '100%',
+    maxWidth: 480, // Cambiado
+  },
   image: {
     width: 80,
     height: 60,
